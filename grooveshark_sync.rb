@@ -4,6 +4,7 @@ require 'xmlrpc/client'
 
 # Custom imports
 require 'grooveshark'
+require_relative 'settings'
 
 # Normalize the name of the song.
 # This name is also used as a filename for the song.
@@ -11,6 +12,7 @@ def normalize_name(name)
   return name.gsub(/[-_.\s]+/, '_').downcase
 end
 
+# Login the user defined by username, password.
 def login_user(gs_client, username, password)
   begin
     user = gs_client.login(username, password)
@@ -26,12 +28,21 @@ if __FILE__ == $PROGRAM_NAME
   aria2_server = XMLRPC::Client.new('localhost', '/rpc', 6800)
   cwd = Dir.pwd()
 
-  username = ask("Username: ") { |q| q.echo = true }
-  password = ask("Password: ") { |q| q.echo = '*' }
+  # If not username/password is defined in the settings file, prompt for
+  # username/password.
+  if USERNAME.empty? and PASSWORD.empty?
+    username = ask("Username: ") { |q| q.echo = true }
+    password = ask("Password: ") { |q| q.echo = '*' }
+  else
+    username = USERNAME
+    password = PASSWORD
+  end
+
   begin
     user = login_user(gs_client, username, password)
   rescue Grooveshark::InvalidAuthentication
     puts "Wrong username or password."
+    exit 1
   end
 
   for playlist in user.playlists do
