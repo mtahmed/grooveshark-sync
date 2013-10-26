@@ -53,8 +53,7 @@ if __FILE__ == $PROGRAM_NAME
         aria2_server.call('aria2.addUri',
                           [song_url],
                           {dir: playlist_dir, out: song_filename})
-        num_songs_downloaded += 1
-        printf("  Downloading song %s ...\n", song.name)
+        printf("  Downloading song %s\n", song.name)
       end
     end
   end
