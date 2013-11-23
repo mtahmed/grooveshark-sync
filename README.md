@@ -25,3 +25,7 @@ ruby grooveshark-sync/grooveshark_sync.rb
 - ruby
 - [grooveshark ruby api](https://github.com/sosedoff/grooveshark)
 - [aria2](http://aria2.sourceforge.net/)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mtahmed/grooveshark-sync/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
